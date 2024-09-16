@@ -3,14 +3,17 @@ package com.pizzeria.java.model;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotEmpty;
@@ -48,8 +51,15 @@ public class Pizza {
 	@Transient
 	private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm");
 
-	public Pizza() {
-		super();
+	@OneToMany(mappedBy = "pizza", cascade = { CascadeType.REMOVE })
+	private List<Offer> offers;
+
+	public List<Offer> getOffers() {
+		return offers;
+	}
+
+	public void setOffers(List<Offer> offers) {
+		this.offers = offers;
 	}
 
 	public Integer getId() {
