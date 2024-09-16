@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="~{fragments/fragments :: head}"></head>
+
+<body class="bkgrd">
+	<th:block th:replace="~{fragments/navbar :: navbar('pizzas')}"></th:block>
+
+	<div class="container my-4">
+		<div class="row justify-content-evenly">
+			<!-- <a th:each="pizza : ${pizzas}" th:href="@{/pizzas/{id}(id=${pizza.id})}" class="text-decoration-none col-12 col-sm-6 col-lg-4 d-flex justify-content-center text-center">
+				<div class="card mb-4 border border-2 my-dimension" style="width: 18rem;">
+						<img th:src="${pizza.photoUrl}"
+							class="card-img-top bkcolor h-100 border border-secondary-subtle" alt="...">
+					
+					<div class="card-body bkcolor">
+						<p class="card-text text-light ">
+							[[${pizza.capName}]]
+						</p>
+					</div>
+				</div>
+			</a> -->
+			<table>
+				<thead>
+					<th>Nome</th>
+					<th>Descrizione</th>
+					<th>Prezzo</th>
+					<th>Foto</th>
+				</thead>
+				
+			</table>
+			<div th:unless="${pizzas.size() > 0}" class="col-6 d-flex justyfy-content-center">
+				<div class="text-center text-light bkcolor">
+					<h2>Non ci sono elementi da mostrare</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script th:replace="~{fragments/fragments :: scripts}"></script>
+</body>
+
+</html>

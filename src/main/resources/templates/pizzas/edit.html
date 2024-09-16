@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="~{fragments/fragments :: head}"></head>
+
+<body class="bkgrd">
+	<th:block th:replace="~{fragments/navbar :: navbar('create')}"></th:block>
+
+
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-6">
+				<h1 class="text-light text-center  my-5 bkcolor">Baking a new pizza...</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6 m-auto my-3">
+				<form id="pizza-edit" th:object="${pizza} " method="post" th:action="@{/pizzas/edit/{id} (id=${pizza.id})}" class="bkcolor">
+
+					<!-- name-->
+					<div class="mb-3">
+						<label for="name" class="form-label text-light">Name</label>
+						<input type="text" class="form-control" id="name" th:field="*{name}" th:errorClass="is-invalid">
+						<!-- neme errors-->
+						<div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+							<ul>
+								<li th:each="err: ${#fields.errors('name')}" th:text="${err}"></li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- photo-->
+					<div class="mb-3">
+						<label for="photo" class="form-label text-light">Photo</label>
+						<input type="text" class="form-control" id="photo" th:field="*{photoUrl}"
+							th:errorClass="is-invalid">
+					</div>
+
+					<!-- price-->
+					<div class="mb-3">
+						<label for="price" class="form-label text-light">Price</label>
+						<input type="number" min="1" step="0.5" class="form-control" id="name" th:field="*{price}"
+							th:errorClass="is-invalid">
+						<!-- neme errors-->
+						<div th:if="${#fields.hasErrors('price')}" class="invalid-feedback">
+							<ul>
+								<li th:each="err: ${#fields.errors('price')}" th:text="${err}"></li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- description-->
+					<div class="mb-3">
+						<label for="name" class="form-label text-light">Description</label>
+						<textarea class="form-control" aria-label="With textarea" id="description"
+							th:field="*{description}"></textarea>
+					</div>
+					<!-- buttons-->
+					<div class="d-flex justify-content-center">
+						<button class="btn btn-success mx-2 border border-1 border-light" type="submit">Submit</button>
+						<button class="btn btn-warning mx-2 border border-1 border-light" type="reset">Reset</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script th:replace="~{fragments/fragments :: scripts}"></script>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="~{fragments/fragments :: head}"></head>
+
+<body class="bkcolor">
+	<div class="px-4 py-5 my-5 text-center text-light">
+		<img class="d-block mx-auto mb-5" src="/img/pizza-hero.png" alt="" width="40%">
+		<h1 class="display-5 fw-bold text-light">World's' Finest Pizza</h1>
+		<div class="col-lg-6 mx-auto">
+			<p class="lead mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et ipsum molestie,
+				vehicula mauris ut, laoreet enim. Mauris mollis eu tortor vitae tincidunt. Sed sollicitudin sollicitudin
+				est, eget ullamcorper ex porttitor eget. Praesent et dolor neque. Aliquam erat volutpat. Maecenas.</p>
+			<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+				<button type="button" class="btn btn-outline-secondary btn-lg px-4">
+					<a class="text-reset text-decoration-none" th:href="@{/pizzas}">Our Pizza</a>
+				</button>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

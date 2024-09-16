@@ -1,0 +1,29 @@
+.bkgrd{
+	background-image: url('/img/background.jpg');
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed
+}
+
+.bkcolor {
+	background-color: rgb(41,41,41);
+}
+
+.bkcolor-transparent {
+	background-color: rgba(41,41,41,0.4);
+}
+
+
+
+.my-dimension{
+	transition: transform .5s; 	
+
+}
+
+
+.my-dimension:hover{
+  transform: scale(1.08);
+  box-shadow: rgb(255, 255, 255) 0 0 1rem;
+}
+
+
