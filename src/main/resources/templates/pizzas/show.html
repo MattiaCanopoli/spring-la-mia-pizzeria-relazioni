@@ -6,6 +6,8 @@
 <body class="bkgrd">
 	<th:block th:replace="~{fragments/navbar :: navbar('pizzas')}"></th:block>
 
+
+
 	<div th:object="${thisPizza}" class="container my-4">
 		<div class="row d-flex justify-content-evenly">
 			<div class="col-lg-4 col-md-6 col-12 d-flex justify-content-center text-center">
@@ -21,9 +23,24 @@
 					<div class="card-body bkcolor border-top">
 						<p class="card-text text-light">[[*{price}]]€</p>
 					</div>
+					<div th:if="${thisPizza.offers.size() > 0}" class="card-body bkcolor border-top">
+						<div th:each="offer : ${thisPizza.offers}" class="card-text text-light">
+							<dl>
+								<dt>[[${offer.name.toUpperCase()}]]</dt>
+								<dd><strong>Start:</strong> [[${offer.formattedStart}]]</dd>
+								<dd><strong>End:</strong> [[${offer.formattedEnd}]]</dd>
+							</dl>
+						</div>
+					</div>
+
 					<div class="d-flex justify-content-center card-body bkcolor border-top">
 						<button class="btn btn-warning mx-2 border border-1 border-light" type="submit">
 							<a class="text-reset text-decoration-none" th:href="@{edit/{id}(id=*{id})}">Edit</a>
+						</button>
+
+
+						<button class="btn btn-success mx-2 border border-1 border-light flex-shrink-0" type="submit">
+							<a class="text-reset text-decoration-none" th:href="@{{id}/offer(id=*{id})}">New Offer</a>
 						</button>
 
 						<!-- Button trigger modal -->
