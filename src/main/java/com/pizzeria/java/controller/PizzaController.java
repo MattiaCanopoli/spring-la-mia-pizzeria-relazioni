@@ -1,5 +1,6 @@
 package com.pizzeria.java.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.pizzeria.java.model.Offer;
 import com.pizzeria.java.model.Pizza;
 import com.pizzeria.java.repo.PizzaRepository;
 
@@ -101,5 +103,16 @@ public class PizzaController {
 
 		deleteMessage.addFlashAttribute("deleteMessage", pizzaName + " è stata rimossa");
 		return ("redirect:/pizzas");
+	}
+
+	// OFFER
+	@GetMapping("/{id}/offer")
+	public String offerCreate(@PathVariable("id") Integer id, Model model) {
+
+		Offer offer = new Offer();
+		offer.setPizza(pizzaRepo.findById(id).get());
+		offer.setStart(LocalDate.now());
+		model.addAttribute("offer", offer);
+		return "/offers/create";
 	}
 }
