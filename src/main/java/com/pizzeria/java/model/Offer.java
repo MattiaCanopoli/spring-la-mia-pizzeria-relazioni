@@ -1,6 +1,7 @@
 package com.pizzeria.java.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -23,13 +25,13 @@ public class Offer {
 	private Integer id;
 
 	@NotNull
-	@NotEmpty
 	private LocalDate start;
 
 	@NotNull
-	@NotEmpty
 	private LocalDate end;
 
+	@NotNull
+	@NotEmpty
 	@Size(min = 3, max = 15)
 	@Column(name = "offer_name")
 	private String name;
@@ -37,6 +39,9 @@ public class Offer {
 	@ManyToOne
 	@JoinColumn(name = "pizza_id", nullable = false)
 	private Pizza pizza;
+
+	@Transient
+	private DateTimeFormatter format = DateTimeFormatter.ofPattern("dd MMMM yy");
 
 	public Integer getId() {
 		return id;
@@ -50,12 +55,20 @@ public class Offer {
 		return start;
 	}
 
+	public String getFormattedStart() {
+		return start.format(format);
+	}
+
 	public void setStart(LocalDate start) {
 		this.start = start;
 	}
 
 	public LocalDate getEnd() {
 		return end;
+	}
+
+	public String getFormattedEnd() {
+		return end.format(format);
 	}
 
 	public void setEnd(LocalDate end) {
