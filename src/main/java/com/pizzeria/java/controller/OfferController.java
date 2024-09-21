@@ -42,6 +42,12 @@ public class OfferController {
 		return "/offers/index";
 	}
 
+	@GetMapping("/{id}")
+	public String show(Model model, @PathVariable("id") Integer id) {
+		model.addAttribute("offers", offerRepo.findById(id).get());
+		return "/offers/show";
+	}
+
 	// DELETE
 
 	@PostMapping("/delete/{id}")
