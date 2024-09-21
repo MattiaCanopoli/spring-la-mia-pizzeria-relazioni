@@ -9,7 +9,7 @@
 		data-bs-theme="dark">
 		<div class="container">
 			<a class="navbar-brand" th:href="@{/pizzas}">Pizza Time</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+			<button class="navbar-toggler mb-2 mb-sm-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
 				aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -26,6 +26,10 @@
 					<li class="nav-item">
 						<a class="nav-link" aria-current="page" th:href="@{/offers}"
 							th:classappend="${current == 'offers' ? 'active' : 'non-active'}">Offers</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" aria-current="page" th:href="@{/ingredients}"
+							th:classappend="${current == 'ingredients' ? 'active' : 'non-active'}">Ingredients</a>
 					</li>
 				</ul>
 			</div>
