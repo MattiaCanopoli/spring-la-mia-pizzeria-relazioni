@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.pizzeria.java.model.Offer;
 import com.pizzeria.java.model.Pizza;
 import com.pizzeria.java.repo.PizzaRepository;
+import com.pizzeria.java.service.IngredientService;
 
 import jakarta.validation.Valid;
 
@@ -28,6 +29,9 @@ public class PizzaController {
 
 	@Autowired
 	private PizzaRepository pizzaRepo;
+
+	@Autowired
+	private IngredientService iService;
 
 	// READ
 	@GetMapping
@@ -49,6 +53,7 @@ public class PizzaController {
 	@GetMapping("/{id}")
 	public String show(@PathVariable("id") Integer id, Model model) {
 		model.addAttribute("thisPizza", pizzaRepo.findById(id).get());
+		model.addAttribute("ingredients", iService.findActive());
 		// model.addAttribute("pizzas", pizzaRepo.findAll());
 		return "/pizzas/show";
 	}
@@ -57,6 +62,7 @@ public class PizzaController {
 	@GetMapping("/create")
 	public String create(Model model) {
 		model.addAttribute("pizza", new Pizza());
+		model.addAttribute("ingredients", iService.findActive());
 		return ("/pizzas/create");
 	}
 
@@ -64,6 +70,7 @@ public class PizzaController {
 	@PostMapping("/create")
 	public String store(@Valid @ModelAttribute("pizza") Pizza pizzaForm, BindingResult bindingResults, Model model,
 			RedirectAttributes redirectMessage) {
+		model.addAttribute("ingredients", iService.findActive());
 		if (bindingResults.hasErrors()) {
 			return ("/pizzas/create");
 		}
@@ -79,7 +86,7 @@ public class PizzaController {
 	public String edit(@PathVariable("id") Integer id, Model model) {
 
 		model.addAttribute("pizza", pizzaRepo.findById(id).get());
-
+		model.addAttribute("ingredients", iService.findActive());
 		return ("/pizzas/edit");
 	}
 	// UPDATE
@@ -87,6 +94,7 @@ public class PizzaController {
 	@PostMapping("/edit/{id}")
 	public String update(@Valid @ModelAttribute("pizza") Pizza pizzaEdit, BindingResult bindingResults, Model model) {
 		if (bindingResults.hasErrors()) {
+			model.addAttribute("ingredients", iService.findActive());
 			return ("/pizzas/edit");
 		}
 

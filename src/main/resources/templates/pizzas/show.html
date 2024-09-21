@@ -23,6 +23,13 @@
 					<div class="card-body bkcolor border-top">
 						<p class="card-text text-light">[[*{price}]]€</p>
 					</div>
+					<div th:if="${thisPizza.ingredients.size() > 0}" class="card-body bkcolor border-top">
+						<div th:each="ingredient : ${thisPizza.ingredients}" class="card-text text-light">
+							<dl>
+								<dd> [[${ingredient.name}]]</dd>
+							</dl>
+						</div>
+					</div>
 					<div th:if="${thisPizza.offers.size() > 0}" class="card-body bkcolor border-top">
 						<div th:each="offer : ${thisPizza.offers}" class="card-text text-light">
 							<dl>
