@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -13,6 +14,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
@@ -53,6 +57,34 @@ public class Pizza {
 
 	@OneToMany(mappedBy = "pizza", cascade = { CascadeType.REMOVE })
 	private List<Offer> offers;
+
+	@ManyToMany
+	@JoinTable(name = "ingredients_pizzas", joinColumns = @JoinColumn(name = "pizza_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+	private Set<Ingredient> ingredients;
+
+	public DecimalFormat getFormat() {
+		return format;
+	}
+
+	public void setFormat(DecimalFormat format) {
+		this.format = format;
+	}
+
+	public DateTimeFormatter getDateFormat() {
+		return dateFormat;
+	}
+
+	public void setDateFormat(DateTimeFormatter dateFormat) {
+		this.dateFormat = dateFormat;
+	}
+
+	public Set<Ingredient> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(Set<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
 
 	public List<Offer> getOffers() {
 		return offers;
