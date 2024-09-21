@@ -26,6 +26,7 @@
 
 			<table th:if="${offers.size() > 0}" class="table table-striped table-dark text-center">
 				<thead>
+					<th>Id</th>
 					<th class="ps-4 text-start">Nome</th>
 					<th>Start Date</th>
 					<th>End Date</th>
@@ -33,6 +34,7 @@
 				</thead>
 				<tbody>
 					<tr th:each="offer : ${offers}">
+						<td>[[${offer.id}]]</td>
 						<td class="ps-4 text-start">
 							[[${offer.name}]]
 						</td>
