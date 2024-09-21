@@ -32,7 +32,7 @@ public class Offer {
 
 	@NotNull
 	@NotEmpty
-	@Size(min = 3, max = 15)
+	@Size(min = 3, max = 35)
 	@Column(name = "offer_name")
 	private String name;
 
