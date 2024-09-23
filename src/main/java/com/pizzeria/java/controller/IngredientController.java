@@ -1,7 +1,5 @@
 package com.pizzeria.java.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pizzeria.java.model.Ingredient;
-import com.pizzeria.java.model.Pizza;
-import com.pizzeria.java.repo.PizzaRepository;
 import com.pizzeria.java.service.IngredientService;
 
 import jakarta.validation.Valid;
@@ -27,8 +23,8 @@ public class IngredientController {
 	@Autowired
 	private IngredientService iService;
 
-	@Autowired
-	private PizzaRepository pRepo;
+//	@Autowired
+//	private PizzaRepository pRepo;
 
 	@GetMapping
 	public String index(Model model) {
@@ -64,15 +60,23 @@ public class IngredientController {
 
 		ra.addFlashAttribute("deleteMessage", "ingrediente cancellato");
 
-		List<Pizza> pizzas = pRepo.findAll();
+//		List<Pizza> pizzas = pRepo.findAll();
+//
+//		for (Pizza pizza : pizzas) {
+//			for (Ingredient ingredient : pizza.getIngredients()) {
+//				if (ingredient.getId().equals(id)) {
+//					pizza.getIngredients().remove(ingredient);
+//				}
+//			}
+//		}
 
-		for (Pizza pizza : pizzas) {
-			for (Ingredient ingredient : pizza.getIngredients()) {
-				if (ingredient.getId().equals(id)) {
-					pizza.getIngredients().remove(ingredient);
-				}
-			}
-		}
+//		for (Pizza pizza : iService.findById(id).getPizzas()) {
+//			for (Ingredient ingredient : pizza.getIngredients()) {
+//				if (ingredient.getId().equals(id)) {
+//					pizza.getIngredients().remove(ingredient);
+//				}
+//			}
+//		}
 
 		iService.disable(id);
 
