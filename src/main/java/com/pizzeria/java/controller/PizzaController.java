@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,7 +36,8 @@ public class PizzaController {
 
 	// READ
 	@GetMapping
-	public String index(Model model, @RequestParam(name = "name", required = false) String name) {
+	public String index(Model model, @RequestParam(name = "name", required = false) String name,
+			Authentication authentication) {
 
 		List<Pizza> pizzas;
 
