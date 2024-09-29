@@ -3,6 +3,8 @@ package com.pizzeria.java.model;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,6 +40,7 @@ public class Offer {
 
 	@ManyToOne
 	@JoinColumn(name = "pizza_id", nullable = false)
+	@JsonBackReference
 	private Pizza pizza;
 
 	@Transient
