@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pizzeria.java.model.Offer;
 import com.pizzeria.java.model.Pizza;
-import com.pizzeria.java.repo.PizzaRepository;
 import com.pizzeria.java.service.IngredientService;
+import com.pizzeria.java.service.PizzaService;
 
 import jakarta.validation.Valid;
 
@@ -29,7 +28,7 @@ import jakarta.validation.Valid;
 public class PizzaController {
 
 	@Autowired
-	private PizzaRepository pizzaRepo;
+	private PizzaService pService;
 
 	@Autowired
 	private IngredientService iService;
@@ -43,9 +42,9 @@ public class PizzaController {
 
 		if (name != null && !name.isEmpty()) {
 
-			pizzas = pizzaRepo.findByNameContains(name);
+			pizzas = pService.findByName(name);
 		} else {
-			pizzas = pizzaRepo.findAll(Sort.by("name"));
+			pizzas = pService.findAll();
 		}
 		model.addAttribute("pizzas", pizzas);
 		model.addAttribute("username", authentication.getName());
@@ -55,7 +54,7 @@ public class PizzaController {
 	// SHOW
 	@GetMapping("/{id}")
 	public String show(@PathVariable("id") Integer id, Model model) {
-		model.addAttribute("thisPizza", pizzaRepo.findById(id).get());
+		model.addAttribute("thisPizza", pService.getById(id));
 		model.addAttribute("ingredients", iService.findActive());
 		// model.addAttribute("pizzas", pizzaRepo.findAll());
 		return "/pizzas/show";
@@ -78,7 +77,7 @@ public class PizzaController {
 			return ("/pizzas/create");
 		}
 
-		pizzaRepo.save(pizzaForm);
+		pService.save(pizzaForm);
 
 		redirectMessage.addFlashAttribute("createMessage", pizzaForm.capName() + " è stata aggiunta");
 		return ("redirect:/pizzas");
@@ -88,7 +87,7 @@ public class PizzaController {
 	@GetMapping("/edit/{id}")
 	public String edit(@PathVariable("id") Integer id, Model model) {
 
-		model.addAttribute("pizza", pizzaRepo.findById(id).get());
+		model.addAttribute("pizza", pService.getById(id));
 		model.addAttribute("ingredients", iService.findActive());
 		return ("/pizzas/edit");
 	}
@@ -101,7 +100,7 @@ public class PizzaController {
 			return ("/pizzas/edit");
 		}
 
-		pizzaRepo.save(pizzaEdit);
+		pService.save(pizzaEdit);
 		return ("redirect:/pizzas/{id}");
 	}
 	// DELETE
@@ -109,8 +108,8 @@ public class PizzaController {
 	@PostMapping("/delete/{id}")
 	public String delete(@PathVariable("id") Integer id, RedirectAttributes deleteMessage) {
 
-		String pizzaName = pizzaRepo.findById(id).get().capName();
-		pizzaRepo.deleteById(id);
+		String pizzaName = pService.getById(id).capName();
+		pService.delete(id);
 
 		deleteMessage.addFlashAttribute("deleteMessage", pizzaName + " è stata rimossa");
 		return ("redirect:/pizzas");
@@ -121,7 +120,7 @@ public class PizzaController {
 	public String offerCreate(@PathVariable("id") Integer id, Model model) {
 
 		Offer offer = new Offer();
-		offer.setPizza(pizzaRepo.findById(id).get());
+		offer.setPizza(pService.getById(id));
 		offer.setStart(LocalDate.now());
 		model.addAttribute("offer", offer);
 		return "/offers/create";
