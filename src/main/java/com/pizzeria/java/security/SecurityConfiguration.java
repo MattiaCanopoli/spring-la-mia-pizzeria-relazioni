@@ -23,7 +23,7 @@ public class SecurityConfiguration {
 				.requestMatchers("/pizzas/*/offer").hasAuthority("ADMIN").requestMatchers("/ingredients")
 				.hasAuthority("ADMIN").requestMatchers("/offers").hasAuthority("ADMIN")
 				.requestMatchers("/pizzas", "pizzas/*").hasAnyAuthority("ADMIN", "USER").requestMatchers("/**")
-				.permitAll().and().formLogin().and().logout().and().exceptionHandling();
+				.permitAll().and().formLogin().and().logout().and().exceptionHandling().and().csrf().disable();
 		return http.build();
 	}
 
