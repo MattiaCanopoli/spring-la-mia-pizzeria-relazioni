@@ -3,6 +3,8 @@ package com.pizzeria.java.model;
 import java.time.LocalDate;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,6 +45,7 @@ public class Ingredient {
 	private LocalDate deletedAt;
 
 	@ManyToMany(mappedBy = "ingredients")
+	@JsonBackReference
 	private Set<Pizza> pizzas;
 
 	public Integer getId() {
