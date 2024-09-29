@@ -48,6 +48,7 @@ public class PizzaController {
 			pizzas = pizzaRepo.findAll(Sort.by("name"));
 		}
 		model.addAttribute("pizzas", pizzas);
+		model.addAttribute("username", authentication.getName());
 		return "/pizzas/index";
 	}
 
