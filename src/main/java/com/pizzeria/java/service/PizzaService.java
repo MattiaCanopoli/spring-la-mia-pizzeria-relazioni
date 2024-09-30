@@ -39,6 +39,11 @@ public class PizzaService {
 		return pizzaRepo.save(pizza);
 	}
 
+	public Pizza update(Pizza pizza, Integer id) {
+		pizza.setId(id);
+		return pizzaRepo.save(pizza);
+	}
+
 	public void delete(Integer id) {
 		pizzaRepo.deleteById(id);
 	}
