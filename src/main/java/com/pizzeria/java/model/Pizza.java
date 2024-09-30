@@ -9,7 +9,6 @@ import java.util.Set;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -61,12 +60,10 @@ public class Pizza {
 	private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm");
 
 	@OneToMany(mappedBy = "pizza", cascade = { CascadeType.REMOVE })
-	@JsonManagedReference
 	private List<Offer> offers;
 
 	@ManyToMany
 	@JoinTable(name = "ingredients_pizzas", joinColumns = @JoinColumn(name = "pizza_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
-	@JsonManagedReference
 	private Set<Ingredient> ingredients;
 
 	public DecimalFormat getFormat() {
@@ -129,6 +126,7 @@ public class Pizza {
 		return this.price;
 	}
 
+	@JsonIgnore
 	public String getFormattedPrice() {
 		if (this.price != null) {
 			return format.format(this.price);
@@ -149,6 +147,7 @@ public class Pizza {
 		this.updatedAt = updatedAt;
 	}
 
+	@JsonIgnore
 	public String getFormattedUpdatedAt() {
 		if (this.updatedAt != null) {
 			return this.updatedAt.toLocalDateTime().format(dateFormat);
@@ -161,6 +160,7 @@ public class Pizza {
 		return this.description;
 	}
 
+	@JsonIgnore
 	public String getFormattedDescription() {
 
 		if (this.description != null && !this.description.isEmpty()) {
@@ -176,6 +176,7 @@ public class Pizza {
 		this.description = description;
 	}
 
+	@JsonIgnore
 	public String capName() {
 		String firstLetter = this.name.substring(0, 1).toUpperCase();
 		String restOfTheString = this.name.substring(1);
